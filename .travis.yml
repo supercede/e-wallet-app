@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+  - stable
+cache:
+  directories:
+    - node_modules
+
+env:
+  global:
+    - NODE_ENV=test
+
+notifications:
+  email: false
+
+services:
+  - mysql2
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS wallet_test;'
+
+install:
+  - npm install
+
+before_script:
+  - echo "Enu Gbe Wallet"
+
+script:
+  - npm test
