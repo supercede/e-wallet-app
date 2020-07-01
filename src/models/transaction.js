@@ -7,11 +7,17 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     type: {
-      type: DataTypes.ENUM('credit', 'debit'),
+      type: DataTypes.ENUM('credit', 'debit', 'self-fund'),
       allowNull: false,
     },
     amount: {
       type: DataTypes.INTEGER,
+    },
+    source: {
+      type: DataTypes.STRING,
+    },
+    recipient: {
+      type: DataTypes.STRING,
     },
     narration: {
       type: DataTypes.STRING,
@@ -19,6 +25,14 @@ export default (sequelize, DataTypes) => {
     status: {
       type: DataTypes.ENUM('success', 'failed', 'pending'),
       allowNull: false,
+    },
+    walletBalance: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    denomination: {
+      type: DataTypes.STRING,
+      defaultValue: 'NGN',
     },
   });
 
@@ -32,5 +46,5 @@ export default (sequelize, DataTypes) => {
     });
   };
 
-  return User;
+  return Transaction;
 };

@@ -9,10 +9,21 @@ export default (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     password: {
-      type: DataType.tring,
+      type: DataType.STRING,
     },
   });
+
+  User.getExistingUser = async (queryString, column = 'email') => {
+    const user = await User.findOne({
+      where: { [column]: queryString },
+    });
+    return user;
+  };
 
   User.associate = models => {
     User.hasOne(models.Wallet, {

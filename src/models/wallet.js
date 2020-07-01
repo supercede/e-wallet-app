@@ -9,14 +9,15 @@ export default (sequelize, DataTypes) => {
     walletNo: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: true,
+      allowNull: false,
+    },
+    denomination: {
+      type: DataTypes.STRING,
+      defaultValue: 'NGN',
     },
     balance: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
-    },
-    password: {
-      type: DataType.tring,
     },
   });
 
