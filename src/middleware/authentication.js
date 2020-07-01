@@ -2,8 +2,10 @@
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 import catchAsync from '../helpers/catchAsync';
-import User from '../models/users.models';
+import models from '../models';
 import { ApplicationError } from '../helpers/errors';
+
+const { User } = models;
 
 export default {
   authenticate: catchAsync(async (req, res, next) => {
