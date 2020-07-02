@@ -80,7 +80,7 @@ export default {
    */
   login: async (req, res) => {
     const { email, password } = req.body;
-    let user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       throw new ApplicationError(401, 'email or password is incorrect');
@@ -119,7 +119,7 @@ export default {
     const checkNewPassword = user.validatePassword(password);
 
     if (checkNewPassword) {
-      throw new ApplicationError(400, "New Password cannot be the same as the old one");
+      throw new ApplicationError(400, 'New Password cannot be the same as the old one');
     }
 
     await user.update({ password });

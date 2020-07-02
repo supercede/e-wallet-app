@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     {},
   );
 
+  Wallet.prototype.verifyBalance = function (amount) {
+    return this.balance >= amount;
+  };
+
   Wallet.associate = models => {
     Wallet.belongsTo(models.User, {
       foreignKey: {

@@ -21,18 +21,15 @@ if (env === 'production') {
 }
 
 fs.readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
-    );
-  })
+  .filter(file => (
+    file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+  ))
   .forEach(file => {
     // console.log(file);
-    
+
     const model = require(path.join(__dirname, file))(sequelize, Sequelize);
     db[model.name] = model;
     console.log(model.name);
-    
   });
 
 Object.keys(db).forEach(modelName => {
