@@ -35,6 +35,26 @@ export default {
         type: Sequelize.STRING,
         defaultValue: 'NGN',
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      walletId: {
+        allowNull: true,
+        type: Sequelize.UUID,
+        references: {
+          model: 'Wallets',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
     });
   },
 

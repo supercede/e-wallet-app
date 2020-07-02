@@ -1,9 +1,21 @@
 import utils from '../helpers/utils';
 import models from '../models';
+import { ApplicationError, NotFoundError } from '../helpers/errors';
 
 const { handleAuthSuccess } = utils;
-const { User, Wallet } = models;
+const { User, Wallet, Transaction } = models;
 
+console.log('user model ===>', Wallet);
+
+/**
+ * @function createCookieAndToken
+ * @description Creates token and cookie after user has been authenticated
+ *
+ * @param {Object} req - the request object
+ * @param {Object} res - the response object
+ *
+ * @returns {Object} - The response object
+ */
 const createCookieAndToken = (user, statusCode, req, res) => {
   const token = user.generateAccessToken();
 
@@ -16,7 +28,7 @@ const createCookieAndToken = (user, statusCode, req, res) => {
   const data = {};
   data.user = user;
 
-  res.cookie('authjwt', token, cookieOptions);
+  res.cookie('w6099912302832', token, cookieOptions);
 
   handleAuthSuccess(req, res, statusCode, token, data);
 };
@@ -40,14 +52,15 @@ export default {
       throw new ApplicationError(409, 'Email exists, please try another');
     }
 
-    const user = new User({
+    const user = await User.create({
       name,
       password,
       email,
     });
 
     const walletNo = Math.floor(Date.now() + Math.random() * 4);
-    const Wallet = new Wallet({
+
+    const wallet = await Wallet.create({
       walletNo,
     });
 
@@ -67,14 +80,51 @@ export default {
    */
   login: async (req, res) => {
     const { email, password } = req.body;
-    let user = await User.getExistingUser(email);
+    let user = await User.findOne({ where: { email } });
 
     if (!user) {
       throw new ApplicationError(401, 'email or password is incorrect');
     }
 
-    user = user.getSafeDataValues();
+    const checkPassword = user.validatePassword(password);
+    if (!checkPassword) {
+      throw new ApplicationError(401, 'email or password is incorrect');
+    }
 
+    createCookieAndToken(user, 200, req, res);
+  },
+
+  /**
+   * @function changePassword
+   * @description handles logged in user password update
+   *
+   * @param {Object} req - the request object
+   * @param {Object} resp - the response object
+   *
+   * @returns {Function} creates a cookie from the response
+   */
+
+  changePassword: async (req, res, next) => {
+    const { id } = req.user;
+    const { currentPassword, password } = req.body;
+
+    const user = await User.findByPk(id);
+
+    const checkPassword = user.validatePassword(currentPassword);
+
+    if (!checkPassword) {
+      throw new ApplicationError(401, 'Incorrect Password');
+    }
+
+    const checkNewPassword = user.validatePassword(password);
+
+    if (checkNewPassword) {
+      throw new ApplicationError(400, "New Password cannot be the same as the old one");
+    }
+
+    await user.update({ password });
+
+    // Log user in, send JWT
     createCookieAndToken(user, 200, req, res);
   },
 };

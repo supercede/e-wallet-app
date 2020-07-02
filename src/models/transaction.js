@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const Transaction = sequelize.define(
     'Transaction',
     {
@@ -35,6 +35,14 @@ export default (sequelize, DataTypes) => {
       denomination: {
         type: DataTypes.STRING,
         defaultValue: 'NGN',
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
       },
     },
     {},

@@ -1,4 +1,12 @@
-export default (sequelize, DataTypes) => {
+import bcrypt from 'bcrypt';
+import { config } from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+config();
+
+const secret = process.env.JWT_SECRET;
+
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {
@@ -16,8 +24,9 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
       },
       password: {
-        type: DataType.STRING,
+        type: DataTypes.STRING,
       },
+      passwordLastChanged: DataTypes.DATE,
     },
     {},
   );
@@ -36,8 +45,16 @@ export default (sequelize, DataTypes) => {
   User.beforeUpdate(async user => {
     if (user.changed('password')) {
       user.password = await user.generatePasswordHash();
+      user.passwordLastChanged = Date.now();
     }
   });
+
+  // User.beforeSave(async user => {
+  //   if (user.changed('password')) {
+  //     user.password = await user.generatePasswordHash();
+  //     user.passwordLastChanged = Date.now();
+  //   }
+  // });
 
   User.prototype.generatePasswordHash = async function generatePasswordHash() {
     const saltRounds = +process.env.SALT;
@@ -45,18 +62,35 @@ export default (sequelize, DataTypes) => {
   };
 
   User.prototype.generateAccessToken = function () {
-    return jwt.sign({ id: this._id }, secret, {
+    return jwt.sign({ id: this.id }, secret, {
       expiresIn: '3d',
     });
   };
 
-  User.prototype.getSafeDataValues = function () {
-    const { password, ...data } = this.dataValues;
-    return data;
+  // User.prototype.getSafeDataValues = function () {
+  //   const { password, ...data } = this.dataValues;
+  //   return data;
+  // };
+  User.prototype.toJSON = function () {
+    var values = Object.assign({}, this.get());
+
+    delete values.password;
+    return values;
   };
 
   User.prototype.validatePassword = function validatePassword(password) {
     return bcrypt.compareSync(password, this.password);
+  };
+
+  User.prototype.checkLastPasswordChange = function (jwtTimestamp) {
+    if (this.passwordLastChanged) {
+      const lastPasswordChange = this.passwordLastChanged.getTime() / 1000;
+
+      return jwtTimestamp < lastPasswordChange;
+    }
+    // false indicates that JWT was issued after last password change and thus is valid
+
+    return false;
   };
 
   User.associate = models => {

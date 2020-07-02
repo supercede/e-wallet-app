@@ -53,4 +53,35 @@ export default {
       .isLength({ min: 8, max: 40 })
       .withMessage('Password should be between 8 to 40 characters'),
   ],
+
+  changePasswordSchema: [
+    check('currentPassword')
+      .trim()
+      .not()
+      .isEmpty({ ignore_whitespace: true })
+      .withMessage('This field is required')
+      .isLength({ min: 8, max: 40 })
+      .withMessage('Password should be between 8 to 40 characters'),
+
+    check('password')
+      .trim()
+      .not()
+      .isEmpty({ ignore_whitespace: true })
+      .withMessage('This field is required')
+      .isLength({ min: 8, max: 40 })
+      .withMessage('Password should be between 8 to 40 characters'),
+
+    check('passwordConfirm')
+      .trim()
+      .not()
+      .isEmpty({ ignore_whitespace: true })
+      .withMessage('PasswordConfirm field is required')
+      .custom((value, { req, loc, path }) => {
+        if (value !== req.body.password) {
+          throw new Error('Passwords do not match');
+        } else {
+          return value;
+        }
+      }),
+  ],
 };

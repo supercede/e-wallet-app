@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const Wallet = sequelize.define(
     'Wallet',
     {
@@ -20,6 +20,14 @@ export default (sequelize, DataTypes) => {
       balance: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
       },
     },
     {},

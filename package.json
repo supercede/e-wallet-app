@@ -23,6 +23,7 @@
   "dependencies": {
     "@babel/register": "^7.10.4",
     "@babel/runtime": "^7.10.4",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.2",
     "debug": "^4.1.1",
