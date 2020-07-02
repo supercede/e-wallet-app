@@ -6,18 +6,24 @@ export default {
       .trim()
       .not()
       .isEmpty()
-      .withMessage('Recipient ID is required'),
+      .withMessage('Recipient wallet number is required'),
 
     check('amount')
       .not()
       .isEmpty()
       .withMessage('Transaction amount required')
       .isNumeric()
-      .withMessage('Amount must be a number'),
+      .withMessage('Amount must be a number')
+      .custom(value => {
+        if (value <= 50) {
+          throw new Error('Transaction amount must be at least 50 naira');
+        }
+        return value;
+      }),
 
     check('narration')
       .not()
       .isEmpty()
-      .withMessage('Narration amount required'),
+      .withMessage('Narration required'),
   ],
 };

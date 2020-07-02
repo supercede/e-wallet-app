@@ -37,6 +37,13 @@ module.exports = (sequelize, DataTypes) => {
     return this.balance >= amount;
   };
 
+  Wallet.prototype.toJSON = function () {
+    const values = { ...this.get() };
+
+    values.balance /= 100;
+    return values;
+  };
+
   Wallet.associate = models => {
     Wallet.belongsTo(models.User, {
       foreignKey: {

@@ -36,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: 'NGN',
       },
+      errMsg: {
+        type: DataTypes.STRING,
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
@@ -47,6 +50,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
+
+  Transaction.prototype.toJSON = function () {
+    const values = { ...this.get() };
+
+    values.amount /= 100;
+    values.walletBalance /= 100;
+    return values;
+  };
 
   Transaction.associate = models => {
     Transaction.belongsTo(models.Wallet, {

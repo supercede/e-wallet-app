@@ -1,7 +1,10 @@
 export default {
-  handleError: (req, res, code, message, err) => res.status(parseInt(code, 10)).json({
+  handleError: (req, res, code, message, err, data = null) => res.status(parseInt(code, 10)).json({
     status: 'failed',
     message,
+    data: {
+      data,
+    },
     // err
   }),
 

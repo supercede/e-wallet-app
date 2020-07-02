@@ -9,6 +9,7 @@
     "clean": "rm -rf .nyc_output build coverage && mkdir build",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo:all",
+    "db:reset": "npm run db:migrate:undo && npm run db:migrate",
     "dev": "cross-env DEBUG=dev nodemon --exec babel-node src/index.js",
     "lint": "eslint \"**/*.js\" --fix",
     "postinstall": "npm run build && npm run db:migrate",

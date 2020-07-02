@@ -3,12 +3,12 @@ import { ApplicationError, NotFoundError } from '../helpers/errors';
 import utils from '../helpers/utils';
 import transactionsService from '../services/transactions.service';
 
-const {handleInsufficientBalance,
+const {
+  handleInsufficientBalance,
   handleSuccessfulTransaction,
   normalizeAmount,
 } = transactionsService;
 
-const { handleAuthSuccess } = utils;
 const { Wallet } = models;
 
 export default {
@@ -47,16 +47,12 @@ export default {
     transaction.amount = amount;
     transaction.narration = narration;
 
-    const verifyBalance = wallet.verifyAvailableBalance(amount);
+    const verifyBalance = wallet.verifyBalance(amount);
 
     if (!verifyBalance) {
       return handleInsufficientBalance(res, transaction, wallet);
     }
 
     await handleSuccessfulTransaction(res, recipient, req.user, amount, transaction);
-
-    return res.send(wallet);
-
-    // await updateTransactions(res, recipient, req.user, amount, transaction);
   },
 };

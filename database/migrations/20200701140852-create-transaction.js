@@ -35,6 +35,9 @@ export default {
         type: Sequelize.STRING,
         defaultValue: 'NGN',
       },
+      errMsg: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -52,7 +55,7 @@ export default {
           model: 'Wallets',
           key: 'id',
         },
-        onDelete: 'CASCADE',
+        onDelete: 'NO ACTION',
         onUpdate: 'CASCADE',
       },
     });
