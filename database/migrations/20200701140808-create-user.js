@@ -17,6 +17,9 @@ export default {
       password: {
         type: Sequelize.STRING,
       },
+      passwordLastChanged: {
+        type: Sequelize.DATE,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

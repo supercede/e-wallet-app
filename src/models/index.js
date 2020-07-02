@@ -9,7 +9,7 @@ const config = configSetup[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
+if (env === 'production') {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(
@@ -27,8 +27,12 @@ fs.readdirSync(__dirname)
     );
   })
   .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file));
+    // console.log(file);
+    
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize);
     db[model.name] = model;
+    console.log(model.name);
+    
   });
 
 Object.keys(db).forEach(modelName => {
