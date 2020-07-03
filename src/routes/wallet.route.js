@@ -17,6 +17,6 @@ walletRouter.post(
   validator(fundWalletSchema),
   catchAsync(fundWallet),
 );
-walletRouter.get('/paystack/redirect', verifyFunding);
+walletRouter.get('/paystack/redirect', catchAsync(verifyFunding));
 
 export default walletRouter;

@@ -11,7 +11,12 @@ const {
   getUserTransactions,
   getOneTransaction,
 } = transactionController;
-const { transferFundsSchema } = transactionValidation;
+const {
+  transferFundsSchema,
+  transactionSortSchema,
+  transactionStatusSchema,
+  transactionTypeSchema,
+} = transactionValidation;
 
 const transactionsRouter = Router();
 
@@ -22,7 +27,13 @@ transactionsRouter.post(
   catchAsync(transferFund),
 );
 
-transactionsRouter.get('/history', catchAsync(getUserTransactions));
+transactionsRouter.get(
+  '/history',
+  validator(transactionSortSchema),
+  validator(transactionStatusSchema),
+  validator(transactionTypeSchema),
+  catchAsync(getUserTransactions),
+);
 transactionsRouter.get('/:id', catchAsync(getOneTransaction));
 
 export default transactionsRouter;

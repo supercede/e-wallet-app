@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+
 module.exports = (sequelize, DataTypes) => {
   const Wallet = sequelize.define(
     'Wallet',

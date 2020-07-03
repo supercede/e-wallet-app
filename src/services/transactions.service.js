@@ -1,10 +1,8 @@
 import models from '../models';
-import utils from '../helpers/utils';
 
-const { Transaction, Wallet } = models;
+const { Transaction } = models;
 
 export default {
-  normalizeAmount: amount => Math.round(amount * 100),
   /**
    * @description Handles transaction logic between the sender and reciever
    *
@@ -46,14 +44,8 @@ export default {
       walletBalance: recipientWallet.balance,
     });
 
-    await recipientWallet.addTransaction(creditTransaction);
-
-    res.status(200).json({
-      status: 'success',
-      data: {
-        transaction: mainTransaction,
-      },
-    });
+    const newTransaction = recipientWallet.addTransaction(creditTransaction);
+    return newTransaction;
   },
 
   handleInsufficientBalance: async (res, transaction, wallet) => {
@@ -65,12 +57,6 @@ export default {
     const failedTxn = await Transaction.create(transaction);
     // throw new ApplicationError(400, 'Insufficient funds');
 
-    return res.status(400).json({
-      status: 'error',
-      message: 'Insufficient funds',
-      data: {
-        transaction: failedTxn,
-      },
-    });
+    return failedTxn;
   },
 };

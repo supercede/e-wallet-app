@@ -1,13 +1,23 @@
+/* eslint-disable camelcase */
+
 import paystackService from '../services/paystack';
-import { ApplicationError, NotFoundError } from '../helpers/errors';
+import { ApplicationError } from '../helpers/errors';
 import models from '../models';
-import transactionsService from '../services/transactions.service';
+import utils from '../helpers/utils';
 
-const { normalizeAmount } = transactionsService;
+const { normalizeAmount } = utils;
 
-const { User, Wallet, Transaction } = models;
+const { Wallet, Transaction } = models;
 
 export default {
+  /**
+   * @description Fund Wallet via Paystack
+   *
+   * @param {Object} req - The request Object
+   * @param {Object} res - The response Object
+   *
+   * @returns {Object} res - The response Object
+   */
   fundWallet: async (req, res) => {
     const { email } = req.user;
     let { amount } = req.body;
@@ -36,10 +46,20 @@ export default {
     await Transaction.create(transaction);
 
     return res.status(200).json({
-      url: authorization_url,
+      data: {
+        url: authorization_url,
+      },
     });
   },
 
+  /**
+   * @description Verify Paystack payment
+   *
+   * @param {Object} req - The request Object
+   * @param {Object} res - The response Object
+   *
+   * @returns {Object} res - The response Object
+   */
   verifyFunding: async (req, res) => {
     const { reference } = req.query;
 
@@ -48,10 +68,7 @@ export default {
     });
 
     if (!transaction) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Invalid transaction Reference.',
-      });
+      throw new ApplicationError(400, 'Invalid transaction Reference');
     }
 
     const result = await paystackService.verifyTxn(reference);
@@ -68,10 +85,7 @@ export default {
         errorMsg = result.message;
       }
 
-      return res.status(400).json({
-        status: 'error',
-        message: errorMsg,
-      });
+      throw new ApplicationError(400, errorMsg);
     }
 
     const wallet = await Wallet.findByPk(transaction.walletId);
