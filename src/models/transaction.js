@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       type: {
-        type: DataTypes.ENUM('credit', 'debit', 'self-fund'),
+        type: DataTypes.ENUM('credit', 'debit'),
         allowNull: false,
       },
       amount: {
@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 'NGN',
       },
       errMsg: {
+        type: DataTypes.STRING,
+      },
+      txnReference: {
         type: DataTypes.STRING,
       },
       createdAt: {
