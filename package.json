@@ -9,6 +9,7 @@
     "clean": "rm -rf .nyc_output build coverage && mkdir build",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo:all",
+    "db:reset": "npm run db:migrate:undo && npm run db:migrate",
     "dev": "cross-env DEBUG=dev nodemon --exec babel-node src/index.js",
     "lint": "eslint \"**/*.js\" --fix",
     "postinstall": "npm run build && npm run db:migrate",
@@ -25,6 +26,7 @@
     "@babel/runtime": "^7.10.4",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
+    "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
@@ -52,6 +54,7 @@
     "babel-jest": "^26.1.0",
     "eslint": "^7.3.1",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "jest": "^26.1.0",
     "sequelize-cli": "^6.1.0",
     "supertest": "^4.0.2"

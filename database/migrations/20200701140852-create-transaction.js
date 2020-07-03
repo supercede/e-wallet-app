@@ -12,7 +12,7 @@ export default {
         allowNull: false,
       },
       amount: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
       },
       source: {
         type: Sequelize.STRING,
@@ -28,12 +28,15 @@ export default {
         allowNull: false,
       },
       walletBalance: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         allowNull: false,
       },
       denomination: {
         type: Sequelize.STRING,
         defaultValue: 'NGN',
+      },
+      errMsg: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -52,7 +55,7 @@ export default {
           model: 'Wallets',
           key: 'id',
         },
-        onDelete: 'CASCADE',
+        onDelete: 'NO ACTION',
         onUpdate: 'CASCADE',
       },
     });

@@ -12,14 +12,14 @@ export default {
     let token;
     //  Check if token is in header
     if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith('Bearer')
+      req.headers.authorization
+      && req.headers.authorization.startsWith('Bearer')
     ) {
       token = req.headers.authorization.split(' ')[1];
     } else if (req.cookies.w6099912302832) {
-             // else check if it is in a cookie
-             token = req.cookies.w6099912302832;
-           }
+      // else check if it is in a cookie
+      token = req.cookies.w6099912302832;
+    }
     if (!token) {
       return next(
         new ApplicationError(401, 'You need to login to access this resource'),

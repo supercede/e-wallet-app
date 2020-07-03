@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       amount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       source: {
         type: DataTypes.STRING,
@@ -29,12 +29,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       walletBalance: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false,
       },
       denomination: {
         type: DataTypes.STRING,
         defaultValue: 'NGN',
+      },
+      errMsg: {
+        type: DataTypes.STRING,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -47,6 +50,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
+
+  Transaction.prototype.toJSON = function () {
+    const values = { ...this.get() };
+
+    values.amount /= 100;
+    values.walletBalance /= 100;
+    return values;
+  };
 
   Transaction.associate = models => {
     Transaction.belongsTo(models.Wallet, {

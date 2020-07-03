@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 'NGN',
       },
       balance: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         defaultValue: 0,
       },
       createdAt: {
@@ -32,6 +32,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
+
+  Wallet.prototype.verifyBalance = function (amount) {
+    return this.balance >= amount;
+  };
+
+  Wallet.prototype.toJSON = function () {
+    const values = { ...this.get() };
+
+    values.balance /= 100;
+    return values;
+  };
 
   Wallet.associate = models => {
     Wallet.belongsTo(models.User, {

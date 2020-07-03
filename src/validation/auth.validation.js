@@ -43,7 +43,8 @@ export default {
   ],
 
   userLogInSchema: [
-    check('email').trim().not().isEmpty().withMessage('email is required'),
+    check('email').trim().not().isEmpty()
+      .withMessage('email is required'),
 
     check('password')
       .trim()

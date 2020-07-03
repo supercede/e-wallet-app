@@ -1,7 +1,7 @@
 import { Router } from 'express';
+import { validationResult } from 'express-validator';
 import authController from '../controllers/auth.controller';
 import catchAsync from '../helpers/catchAsync';
-import { validationResult } from 'express-validator';
 import authentication from '../middleware/authentication';
 import authValidation from '../validation/auth.validation';
 import validator from '../middleware/validator';
