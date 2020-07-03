@@ -1,13 +1,7 @@
 import { check } from 'express-validator';
 
 export default {
-  transferFundsSchema: [
-    check('recipient')
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage('Recipient wallet number is required'),
-
+  fundWalletSchema: [
     check('amount')
       .not()
       .isEmpty()
@@ -20,10 +14,5 @@ export default {
         }
         return value;
       }),
-
-    check('narration')
-      .not()
-      .isEmpty()
-      .withMessage('Narration required'),
   ],
 };
