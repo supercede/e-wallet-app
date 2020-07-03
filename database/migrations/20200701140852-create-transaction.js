@@ -8,7 +8,7 @@ export default {
         allowNull: false,
       },
       type: {
-        type: Sequelize.ENUM('credit', 'debit', 'self-fund'),
+        type: Sequelize.ENUM('credit', 'debit'),
         allowNull: false,
       },
       amount: {
@@ -26,6 +26,9 @@ export default {
       status: {
         type: Sequelize.ENUM('success', 'failed', 'pending'),
         allowNull: false,
+      },
+      txnReference: {
+        type: Sequelize.STRING,
       },
       walletBalance: {
         type: Sequelize.BIGINT,
