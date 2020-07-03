@@ -1,11 +1,9 @@
 import utils from '../helpers/utils';
 import models from '../models';
-import { ApplicationError, NotFoundError } from '../helpers/errors';
+import { ApplicationError } from '../helpers/errors';
 
 const { handleAuthSuccess } = utils;
-const { User, Wallet, Transaction } = models;
-
-console.log('user model ===>', Wallet);
+const { User, Wallet } = models;
 
 /**
  * @function createCookieAndToken
@@ -30,7 +28,7 @@ const createCookieAndToken = (user, statusCode, req, res) => {
 
   res.cookie('w6099912302832', token, cookieOptions);
 
-  handleAuthSuccess(req, res, statusCode, token, data);
+  handleAuthSuccess(res, statusCode, token, data);
 };
 
 export default {

@@ -1,15 +1,14 @@
 import models from '../models';
 import { ApplicationError, NotFoundError } from '../helpers/errors';
-import utils from '../helpers/utils';
 import transactionsService from '../services/transactions.service';
-
-const { handleSuccess } = utils;
+import utils from '../helpers/utils';
 
 const {
   handleInsufficientBalance,
   handleSuccessfulTransaction,
-  normalizeAmount,
 } = transactionsService;
+
+const { paginate, normalizeAmount } = utils;
 
 const { Wallet, Transaction } = models;
 
@@ -26,7 +25,6 @@ export default {
     const transaction = {};
     const { recipient, narration } = req.body;
     let { amount } = req.body;
-    const { id } = req.user;
 
     amount = normalizeAmount(amount);
     const wallet = await req.user.getWallet();
@@ -39,8 +37,9 @@ export default {
       where: { walletNo: recipient },
     });
 
-    if (!recipientWallet)
+    if (!recipientWallet) {
       throw new NotFoundError('User not found, please review your transaction');
+    }
 
     transaction.source = wallet.walletNo;
     transaction.recipient = recipient;
@@ -50,10 +49,17 @@ export default {
     const verifyBalance = wallet.verifyBalance(amount);
 
     if (!verifyBalance) {
-      return handleInsufficientBalance(res, transaction, wallet);
+      const failedTxn = handleInsufficientBalance(res, transaction, wallet);
+      return res.status(400).json({
+        status: 'error',
+        message: 'Insufficient funds',
+        data: {
+          transaction: failedTxn,
+        },
+      });
     }
 
-    await handleSuccessfulTransaction(
+    const newTransaction = await handleSuccessfulTransaction(
       res,
       recipient,
       req.user,
@@ -62,6 +68,13 @@ export default {
       wallet,
       recipientWallet,
     );
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        transaction: newTransaction,
+      },
+    });
   },
 
   /**
@@ -73,33 +86,27 @@ export default {
    * @returns {Object} res - The response Object
    */
   getUserTransactions: async (req, res) => {
-    const { page = 1, limit = 10, sort, type, status } = req.query;
+    const {
+      page = 1,
+      limit = 10,
+      sort,
+      type,
+      status,
+    } = req.query;
 
     const wallet = await req.user.getWallet();
 
     const query = { where: { walletId: wallet.id }, order: [] };
 
-    if (type) {
-      query.where.type = type;
-    }
+    const queryOptions = {
+      type,
+      status,
+      sort,
+      limit,
+      page,
+    };
 
-    if (status) {
-      query.where.status = status;
-    }
-
-    if (sort) {
-      if (sort === 'date') {
-        query.order.push(['createdAt', 'ASC']);
-      }
-      if (sort === 'amount') {
-        query.order.push(['amount', 'ASC']);
-      }
-    }
-
-    query.limit = +limit;
-    query.offset = +((page - 1) * limit);
-
-    const transactions = await Transaction.findAndCountAll(query);
+    const transactions = await paginate(Transaction, query, queryOptions);
 
     return res.status(200).json({
       status: 'success',
@@ -112,6 +119,14 @@ export default {
     });
   },
 
+  /**
+   * @description Get a single transaction
+   *
+   * @param {Object} req - The request Object
+   * @param {Object} res - The response Object
+   *
+   * @returns {Object} res - The response Object
+   */
   getOneTransaction: async (req, res) => {
     const { id } = req.params;
 
@@ -126,6 +141,11 @@ export default {
 
     if (!transaction) throw new NotFoundError('Transaction not found');
 
-    handleSuccess(req, res, 200, transaction);
+    return res.status(200).json({
+      status: 'success',
+      data: {
+        transaction,
+      },
+    });
   },
 };

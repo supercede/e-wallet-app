@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import bcrypt from 'bcrypt';
 import { config } from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -49,13 +50,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  // User.beforeSave(async user => {
-  //   if (user.changed('password')) {
-  //     user.password = await user.generatePasswordHash();
-  //     user.passwordLastChanged = Date.now();
-  //   }
-  // });
-
   User.prototype.generatePasswordHash = async function generatePasswordHash() {
     const saltRounds = +process.env.SALT;
     return bcrypt.hash(this.password, saltRounds);
@@ -67,10 +61,6 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  // User.prototype.getSafeDataValues = function () {
-  //   const { password, ...data } = this.dataValues;
-  //   return data;
-  // };
   User.prototype.toJSON = function () {
     const values = { ...this.get() };
 
