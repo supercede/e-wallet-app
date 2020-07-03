@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 'NGN',
       },
       balance: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         defaultValue: 0,
       },
       createdAt: {

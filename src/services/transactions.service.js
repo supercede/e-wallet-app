@@ -1,8 +1,6 @@
 import models from '../models';
 import utils from '../helpers/utils';
 
-const { handleSuccess, handleError } = utils;
-
 const { Transaction, Wallet } = models;
 
 export default {
@@ -24,11 +22,9 @@ export default {
     source,
     amount,
     transaction,
+    sourceWallet,
+    recipientWallet,
   ) => {
-    const sourceWallet = await Wallet.findOne({ where: { userId: source.id } });
-
-    const recipientWallet = await Wallet.findOne({ where: { walletNo: recipient } });
-
     const sourceBalance = sourceWallet.balance - amount;
     const recipientBalance = recipientWallet.balance + amount;
 
@@ -64,7 +60,7 @@ export default {
     transaction.status = 'failed';
     transaction.walletId = wallet.id;
     transaction.type = 'debit';
-    // transaction.errMsg = 'Insufficient funds';
+    transaction.errMsg = 'Insufficient funds';
     transaction.walletBalance = wallet.balance;
     const failedTxn = await Transaction.create(transaction);
     // throw new ApplicationError(400, 'Insufficient funds');

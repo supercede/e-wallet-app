@@ -17,7 +17,7 @@ export default {
         defaultValue: 'NGN',
       },
       balance: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         defaultValue: 0,
       },
       userId: {

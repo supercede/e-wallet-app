@@ -12,7 +12,7 @@ export default {
         allowNull: false,
       },
       amount: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
       },
       source: {
         type: Sequelize.STRING,
@@ -28,7 +28,7 @@ export default {
         allowNull: false,
       },
       walletBalance: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         allowNull: false,
       },
       denomination: {
