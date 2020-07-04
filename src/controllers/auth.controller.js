@@ -56,7 +56,7 @@ export default {
       email,
     });
 
-    const walletNo = Math.floor(Date.now() + Math.random() * 4);
+    const walletNo = Math.round(Date.now() + Math.random() * 100);
 
     const wallet = await Wallet.create({
       walletNo,

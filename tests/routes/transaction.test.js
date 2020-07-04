@@ -13,10 +13,9 @@ import {
   walletTwo,
 } from '../fixtures/mock';
 
-const { Wallet, Transaction } = models;
+const { Wallet } = models;
 
-const userWallet = async () =>
-  Wallet.findOne({ where: { userId: userTwo.id } });
+const userWallet = async () => Wallet.findOne({ where: { userId: userTwo.id } });
 
 let transactionId;
 
