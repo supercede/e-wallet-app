@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import paystackService from '../services/paystack';
+import paystackService from '../services/paystackService';
 import { ApplicationError } from '../helpers/errors';
 import models from '../models';
 import utils from '../helpers/utils';
@@ -103,7 +103,7 @@ export default {
       message: 'payment successful',
       data: {
         transaction,
-        // result,
+        result,
       },
     });
   },

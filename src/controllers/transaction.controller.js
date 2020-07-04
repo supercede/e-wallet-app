@@ -49,7 +49,7 @@ export default {
     const verifyBalance = wallet.verifyBalance(amount);
 
     if (!verifyBalance) {
-      const failedTxn = handleInsufficientBalance(res, transaction, wallet);
+      const failedTxn = await handleInsufficientBalance(res, transaction, wallet);
       return res.status(400).json({
         status: 'error',
         message: 'Insufficient funds',
