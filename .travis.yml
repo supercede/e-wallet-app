@@ -7,6 +7,7 @@ cache:
 
 env:
   global:
+    - CC_TEST_REPORTER_ID=1122ef750ef2edec7ac24fbd19210b60ce0fd5ddcb85fee90d1c0aef77f1984c
     - NODE_ENV=test
 
 notifications:

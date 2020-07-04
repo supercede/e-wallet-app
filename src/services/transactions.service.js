@@ -44,8 +44,8 @@ export default {
       walletBalance: recipientWallet.balance,
     });
 
-    const newTransaction = recipientWallet.addTransaction(creditTransaction);
-    return newTransaction;
+    await recipientWallet.addTransaction(creditTransaction);
+    return mainTransaction;
   },
 
   handleInsufficientBalance: async (res, transaction, wallet) => {
