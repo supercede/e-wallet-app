@@ -3,4 +3,3 @@ coverage
 .env
 build
 todo.md
-**/wallet.test.js
