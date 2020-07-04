@@ -9,7 +9,7 @@ const { authenticate } = authentication;
 const { fundWalletSchema } = walletValidation;
 
 const walletRouter = Router();
-const { fundWallet, verifyFunding } = walletController;
+const { fundWallet, verifyFunding, getWallet } = walletController;
 
 walletRouter.post(
   '/fund-wallet',
@@ -18,5 +18,7 @@ walletRouter.post(
   catchAsync(fundWallet),
 );
 walletRouter.get('/paystack/redirect', catchAsync(verifyFunding));
+
+walletRouter.get('/', authenticate, getWallet);
 
 export default walletRouter;

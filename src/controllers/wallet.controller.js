@@ -7,7 +7,7 @@ import utils from '../helpers/utils';
 
 const { normalizeAmount } = utils;
 
-const { Wallet, Transaction } = models;
+const { Wallet, Transaction, User } = models;
 
 export default {
   /**
@@ -104,6 +104,28 @@ export default {
       data: {
         transaction,
         result,
+      },
+    });
+  },
+
+  getWallet: async (req, res) => {
+    const { id } = req.user;
+
+    const wallet = await Wallet.findOne({
+      include: [
+        {
+          model: User,
+
+          attributes: ['name', 'email'],
+        },
+      ],
+      where: { userId: id },
+    });
+
+    return res.status(200).json({
+      status: 'success',
+      data: {
+        wallet,
       },
     });
   },
