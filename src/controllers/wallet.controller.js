@@ -48,6 +48,7 @@ export default {
     return res.status(200).json({
       data: {
         url: authorization_url,
+        reference,
       },
     });
   },
