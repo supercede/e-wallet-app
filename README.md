@@ -6,6 +6,8 @@
 
 [![Build Status](https://travis-ci.com/supercede/e-wallet-app.svg?branch=develop)](https://travis-ci.com/supercede/e-wallet-app)
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/93847dbc6e336c0047c9)
+
 ### Prerequisites
 
 Ensure you have the following installed on your local machine:
@@ -24,6 +26,8 @@ Ensure you have the following installed on your local machine:
 
 ## Project Pipeline
 - [Hosted API](https://e-wallet-app.herokuapp.com/)
+- [API DOCS - Swagger](https://e-wallet-app.herokuapp.com/docs)
+- [API DOCS - Postman](https://documenter.getpostman.com/view/9950313/T17GenG3?version=latest)
 
 ### Installing/Running locally
 - Clone or fork repo
@@ -43,4 +47,4 @@ Ensure you have the following installed on your local machine:
 
 ## Documentation
 
-- Check documentation [here]()
+- Check [Swagger](https://documenter.getpostman.com/view/9950313/T17GenG3?version=latest) or [Postman](https://documenter.getpostman.com/view/9950313/T17GenG3?version=latest) documentation
