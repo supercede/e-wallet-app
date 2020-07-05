@@ -41,7 +41,8 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "paystack-api": "^2.0.5",
-    "sequelize": "^6.2.4"
+    "sequelize": "^6.2.4",
+    "swagger-ui-express": "^4.1.4"
   },
   "jest": {
     "testEnvironment": "node",

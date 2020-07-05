@@ -1,0 +1,3139 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "E-Wallet",
+    "description": "# Introduction\r\n\r\nAn API collection for an e-wallet app, hosted on [heroku](https://e-wallet-app.herokuapp.com/) All amounts are returned in Naira except stated otherwise.\r\n\r\n# Authentication\r\n\r\nAuthenticated routes require token for access. This token is sent as a cookie (named `w6099912302832`) and in the response body (as `token`) when user logs in, signs up or change password.\r\n\r\n# Response Codes\r\n\r\nEach response will be returned with one of the following HTTP status codes:\r\n\r\n- `200` `OK` The request was successful\r\n- `201` `Created` Successful request, A new resource has been created\r\n- `400` `Bad Request` There was a problem with the user request (e.g: Invalid field values)\r\n- `401` `Unauthorized` The supplied API credentials are invalid\r\n- `404` `Not Found` An attempt was made to access a resource that does not exist in the API\r\n- `500` `Server Error` An error occured on the server.\r\n\r\n# Rate Limits\r\n\r\nRequests are limited to 150 per hour.",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://e-wallet-app.herokuapp.com/api/v1",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Signup",
+        "description": "Signup Route, for registering new users. Requires **email**, **name**, **password** and **passwordConfirm** fields.",
+        "operationId": "Signup",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "passwordConfirm"
+                ],
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Cena"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "mock@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "samad123"
+                  },
+                  "passwordConfirm": {
+                    "type": "string",
+                    "example": "samad123"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "149"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 13:39:20 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593959958"
+                  }
+                }
+              },
+              "Set-Cookie": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "w6099912302832=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRkYjgyZTcyLTI5N2MtNDEzYi1iMzI0LWExZTA1NTI1ZjMzNiIsImlhdCI6MTU5Mzk1NjM2MCwiZXhwIjoxNTk0MjE1NTYwfQ.RoOsFlhtda-T7VLAhXlYd9tulVGmgVFiv69YqiNl4xE; Path=/; Expires=Wed, 08 Jul 2020 13:39:20 GMT; HttpOnly; Secure"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "404"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"194-3ylTle7xrO+XbkZ5/qbrbRUF+bY\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/Signup"
+                },
+                "example": {
+                  "status": "success",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRkYjgyZTcyLTI5N2MtNDEzYi1iMzI0LWExZTA1NTI1ZjMzNiIsImlhdCI6MTU5Mzk1NjM2MCwiZXhwIjoxNTk0MjE1NTYwfQ.RoOsFlhtda-T7VLAhXlYd9tulVGmgVFiv69YqiNl4xE",
+                  "data": {
+                    "user": {
+                      "id": "4db82e72-297c-413b-b324-a1e05525f336",
+                      "name": "Adam Mohammed",
+                      "email": "me@mails.com",
+                      "updatedAt": "2020-07-05T13:39:20.709Z",
+                      "createdAt": "2020-07-05T13:39:20.709Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login",
+        "description": "Login Route, for logging in existing users. Requires **email** and **password** fields.",
+        "operationId": "Login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "mock@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "samad123"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "146"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 14:58:48 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Set-Cookie": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "w6099912302832=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1MjZhMzkwLWJjNmItNDJmNy1hNjc4LWU4OWVjNTQ3NjlkYyIsImlhdCI6MTU5Mzk2MTEyOCwiZXhwIjoxNTk0MjIwMzI4fQ.vJm0YP950AwGIF7zFhgLwRbsDRWf71YjorZybPygQDk; Path=/; Expires=Wed, 08 Jul 2020 14:58:48 GMT; HttpOnly; Secure"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "401"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"191-fnBIL+QTVjedis4WCXkvxtNCiC8\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/Login"
+                },
+                "example": {
+                  "status": "success",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1MjZhMzkwLWJjNmItNDJmNy1hNjc4LWU4OWVjNTQ3NjlkYyIsImlhdCI6MTU5Mzk2MTEyOCwiZXhwIjoxNTk0MjIwMzI4fQ.vJm0YP950AwGIF7zFhgLwRbsDRWf71YjorZybPygQDk",
+                  "data": {
+                    "user": {
+                      "id": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+                      "name": "John Cena",
+                      "email": "mock@mail.com",
+                      "createdAt": "2020-07-05T14:58:01Z",
+                      "updatedAt": "2020-07-05T14:58:01Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/auth/change-password": {
+      "patch": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Change Password",
+        "operationId": "ChangePassword",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "currentPassword",
+                  "password",
+                  "passwordConfirm"
+                ],
+                "type": "object",
+                "properties": {
+                  "currentPassword": {
+                    "type": "string",
+                    "example": "samad123"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "samad1234"
+                  },
+                  "passwordConfirm": {
+                    "type": "string",
+                    "example": "samad1234"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "149"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 15:00:32 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Set-Cookie": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "w6099912302832=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1MjZhMzkwLWJjNmItNDJmNy1hNjc4LWU4OWVjNTQ3NjlkYyIsImlhdCI6MTU5Mzk2MTIzMywiZXhwIjoxNTk0MjIwNDMzfQ.TuMbVkAIPKSIf5yZeA9SfbVQtFheGCSOARLNDio7C2U; Path=/; Expires=Wed, 08 Jul 2020 15:00:33 GMT; HttpOnly; Secure"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "401"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"191-r5OOrw654YuMshQjajIRM5haEH4\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangePassword"
+                },
+                "example": {
+                  "status": "success",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1MjZhMzkwLWJjNmItNDJmNy1hNjc4LWU4OWVjNTQ3NjlkYyIsImlhdCI6MTU5Mzk2MTIzMywiZXhwIjoxNTk0MjIwNDMzfQ.TuMbVkAIPKSIf5yZeA9SfbVQtFheGCSOARLNDio7C2U",
+                  "data": {
+                    "user": {
+                      "id": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+                      "name": "John Cena",
+                      "email": "mock@mail.com",
+                      "createdAt": "2020-07-05T14:58:01Z",
+                      "updatedAt": "2020-07-05T15:00:33.201Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/transactions/transfer": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Transfer money",
+        "description": "Route to transfer money to another user. The ***recipient*** field contains the recipient wallet number and is sent in the request body with ***amount*** - the amount to be transferred (in Naira and to a maximum of 2 decimal places) and ***narration*** - reason for the transfer. All fields are required. Users can not transfer above their current account balance.",
+        "operationId": "Transfermoney",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "amount",
+                  "narration",
+                  "recipient"
+                ],
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 200
+                  },
+                  "narration": {
+                    "type": "string",
+                    "example": "Buy bread"
+                  },
+                  "recipient": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 1593962036483
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "149"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 15:15:50 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "386"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"182-yV9waRlBeKER00WRNL3PW6Uhzrw\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transfermoney"
+                },
+                "example": {
+                  "status": "success",
+                  "data": {
+                    "transaction": {
+                      "createdAt": "2020-07-05T15:15:50.437Z",
+                      "updatedAt": "2020-07-05T15:15:50.437Z",
+                      "id": "e6431079-1751-461b-a3ce-fb8a6ce9629b",
+                      "denomination": "NGN",
+                      "source": "1593961081532",
+                      "recipient": "1593962036483",
+                      "amount": 200,
+                      "narration": "Buy bread",
+                      "walletId": "7764b954-839b-43c8-9760-0d293dd7603c",
+                      "type": "debit",
+                      "status": "success",
+                      "walletBalance": 3800.78
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/transactions/history": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Transaction History",
+        "description": "Get a user's transaction history. It returns both debit and credit transactions by default. Requires authentication. Response can be formatted in the following manners:\r\n\r\n- Use request queries to filter transactions based on their type (debit/credit) or status (success, pending or failed);\r\n\r\n- You can also sort transactions by date or amount. Default sort order is ascending, add a negative (-) sign to your sort query to sort in descending order\r\n\r\n| Sign | Format |\r\n| ------ | ------ |\r\n| Sort in desc order by amount | `url?sort=-date` |\r\n| get pending transactions | `url?status=pending` |\r\n\r\n- Results can be paginated using the **page** and **limit** request query parameters.\r\n\r\nFor example, to get the second page of a response limited to 3 per request:\r\n`url?page=2&limit=3`",
+        "operationId": "TransactionHistory",
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "-date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "149"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 15:11:40 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "832"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"340-M4PvD4/pcqSI6Xp5K6Vn6bimfnk\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionHistory"
+                },
+                "example": {
+                  "status": "success",
+                  "data": {
+                    "transactions": [
+                      {
+                        "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+                        "type": "credit",
+                        "amount": 2000.39,
+                        "source": null,
+                        "recipient": "1593961081532",
+                        "narration": "Fund Wallet",
+                        "status": "success",
+                        "walletBalance": 4000.78,
+                        "denomination": "NGN",
+                        "errMsg": null,
+                        "txnReference": "qhrnedgawp",
+                        "createdAt": "2020-07-05T15:06:56Z",
+                        "updatedAt": "2020-07-05T15:08:02Z",
+                        "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+                      },
+                      {
+                        "id": "417116ff-88c3-4037-a6c7-f90bb01dd073",
+                        "type": "credit",
+                        "amount": 2000.39,
+                        "source": null,
+                        "recipient": "1593961081532",
+                        "narration": "Fund Wallet",
+                        "status": "pending",
+                        "walletBalance": 0,
+                        "denomination": "NGN",
+                        "errMsg": null,
+                        "txnReference": "sbqows4v45",
+                        "createdAt": "2020-07-05T15:02:09Z",
+                        "updatedAt": "2020-07-05T15:02:09Z",
+                        "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+                      }
+                    ]
+                  },
+                  "count": 2,
+                  "page": 1,
+                  "limit": 10
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/transactions/:transactionId": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get Transaction",
+        "description": "Get a single transaction through its id. Requires authentication",
+        "operationId": "GetTransaction",
+        "parameters": [{
+          "name" : "id",
+          "in" : "path",
+          "description" : "transactionId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "149"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 15:12:57 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "424"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"1a8-t9kF/kzd9+u/Uz9+47A3IEp9Ogg\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTransaction"
+                },
+                "example": {
+                  "status": "success",
+                  "data": {
+                    "transaction": {
+                      "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+                      "type": "credit",
+                      "amount": 2000.39,
+                      "source": null,
+                      "recipient": "1593961081532",
+                      "narration": "Fund Wallet",
+                      "status": "success",
+                      "walletBalance": 4000.78,
+                      "denomination": "NGN",
+                      "errMsg": null,
+                      "txnReference": "qhrnedgawp",
+                      "createdAt": "2020-07-05T15:06:56Z",
+                      "updatedAt": "2020-07-05T15:08:02Z",
+                      "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/wallet/fund-wallet": {
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Fund Wallet",
+        "description": "- Route to fund wallet using Paystack. Requires authentication - users can only fund their own wallet. The request body should contain the amount to fund the wallet with (in Naira and to a maximum of 2 decimal places). It returns an authorization url which the user will visit to complete their transaction, else transaction will remain pending. (Note that the Paystack channel is in test mode, hence only the provided test channels can be used).",
+        "operationId": "FundWallet",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "amount"
+                ],
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 2000.39
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "149"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 15:02:09 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "89"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"59-V7U97lEOF0CtRVM/gTU9EX2yI2M\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundWallet"
+                },
+                "example": {
+                  "data": {
+                    "url": "https://checkout.paystack.com/z26vmuplupa26cj",
+                    "reference": "sbqows4v45"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/wallet": {
+      "get": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Get Wallet Balance",
+        "description": "Get a user's available balance. Requires authentication",
+        "operationId": "GetWalletBalance",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "148"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 15:10:16 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "328"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"148-GHxbM5TVz3PyRtRIt16v1RQwCVU\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetWalletBalance"
+                },
+                "example": {
+                  "status": "success",
+                  "data": {
+                    "wallet": {
+                      "id": "7764b954-839b-43c8-9760-0d293dd7603c",
+                      "walletNo": "1593961081532",
+                      "denomination": "NGN",
+                      "balance": 4000.78,
+                      "createdAt": "2020-07-05T14:58:01Z",
+                      "updatedAt": "2020-07-05T15:08:02Z",
+                      "userId": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+                      "User": {
+                        "name": "John Cena",
+                        "email": "mock@mail.com"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/wallet/paystack/redirect": {
+      "get": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Verify Payment",
+        "description": "- Paystack route to verify payment. Requests to this route are made from Paystack to confirm a payment has been made and to determine if it was successful or not",
+        "operationId": "VerifyPayment",
+        "parameters": [
+          {
+            "name": "trxref",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "qhrnedgawp"
+            }
+          },
+          {
+            "name": "reference",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "qhrnedgawp"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Server": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Cowboy"
+                  }
+                }
+              },
+              "Connection": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              },
+              "X-Powered-By": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "X-Ratelimit-Limit": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "150"
+                  }
+                }
+              },
+              "X-Ratelimit-Remaining": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "149"
+                  }
+                }
+              },
+              "Date": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Sun, 05 Jul 2020 15:08:01 GMT"
+                  }
+                }
+              },
+              "X-Ratelimit-Reset": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1593964473"
+                  }
+                }
+              },
+              "Content-Length": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1829"
+                  }
+                }
+              },
+              "Etag": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"725-k+CqOMqgDRQQFRHcj3ewpYASfvM\""
+                  }
+                }
+              },
+              "Via": {
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "1.1 vegur"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyPayment"
+                },
+                "example": {
+                  "status": "success",
+                  "message": "payment successful",
+                  "data": {
+                    "transaction": {
+                      "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+                      "type": "credit",
+                      "amount": 2000.39,
+                      "source": null,
+                      "recipient": "1593961081532",
+                      "narration": "Fund Wallet",
+                      "status": "success",
+                      "walletBalance": 4000.78,
+                      "denomination": "NGN",
+                      "errMsg": null,
+                      "txnReference": "qhrnedgawp",
+                      "createdAt": "2020-07-05T15:06:56Z",
+                      "updatedAt": "2020-07-05T15:08:02.013Z",
+                      "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+                    },
+                    "result": {
+                      "status": true,
+                      "message": "Verification successful",
+                      "data": {
+                        "id": 733955308,
+                        "domain": "test",
+                        "status": "success",
+                        "reference": "qhrnedgawp",
+                        "amount": 200039,
+                        "message": null,
+                        "gateway_response": "Successful",
+                        "paid_at": "2020-07-05T15:07:35Z",
+                        "created_at": "2020-07-05T15:06:56Z",
+                        "channel": "card",
+                        "currency": "NGN",
+                        "ip_address": "105.112.18.182",
+                        "metadata": "",
+                        "log": {
+                          "start_time": 1593961649,
+                          "time_spent": 7,
+                          "attempts": 1,
+                          "errors": 0,
+                          "success": true,
+                          "mobile": false,
+                          "input": [],
+                          "history": [
+                            {
+                              "type": "action",
+                              "message": "Attempted to pay with card",
+                              "time": 6
+                            },
+                            {
+                              "type": "success",
+                              "message": "Successfully paid with card",
+                              "time": 7
+                            }
+                          ]
+                        },
+                        "fees": 3001,
+                        "fees_split": null,
+                        "authorization": {
+                          "authorization_code": "AUTH_ffubwcoq6c",
+                          "bin": "408408",
+                          "last4": "4081",
+                          "exp_month": "12",
+                          "exp_year": "2020",
+                          "channel": "card",
+                          "card_type": "visa DEBIT",
+                          "bank": "Test Bank",
+                          "country_code": "NG",
+                          "brand": "visa",
+                          "reusable": true,
+                          "signature": "SIG_upPmVq9O1jemQ1mFA4ca",
+                          "account_name": null
+                        },
+                        "customer": {
+                          "id": 26104751,
+                          "first_name": null,
+                          "last_name": null,
+                          "email": "mock@mail.com",
+                          "customer_code": "CUS_yrg48tgxmbpexsb",
+                          "phone": null,
+                          "metadata": null,
+                          "risk_action": "default",
+                          "international_format_phone": null
+                        },
+                        "plan": null,
+                        "split": {},
+                        "order_id": null,
+                        "paidAt": "2020-07-05T15:07:35Z",
+                        "createdAt": "2020-07-05T15:06:56Z",
+                        "requested_amount": 200039,
+                        "transaction_date": "2020-07-05T15:06:56Z",
+                        "plan_object": {},
+                        "subaccount": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Signup": {
+        "title": "Signup",
+        "required": [
+          "status",
+          "token",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data"
+          }
+        },
+        "example": {
+          "status": "success",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRkYjgyZTcyLTI5N2MtNDEzYi1iMzI0LWExZTA1NTI1ZjMzNiIsImlhdCI6MTU5Mzk1NjM2MCwiZXhwIjoxNTk0MjE1NTYwfQ.RoOsFlhtda-T7VLAhXlYd9tulVGmgVFiv69YqiNl4xE",
+          "data": {
+            "user": {
+              "id": "4db82e72-297c-413b-b324-a1e05525f336",
+              "name": "Adam Mohammed",
+              "email": "me@mails.com",
+              "updatedAt": "2020-07-05T13:39:20.709Z",
+              "createdAt": "2020-07-05T13:39:20.709Z"
+            }
+          }
+        }
+      },
+      "Data": {
+        "title": "Data",
+        "required": [
+          "user"
+        ],
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "example": {
+          "user": {
+            "id": "4db82e72-297c-413b-b324-a1e05525f336",
+            "name": "Adam Mohammed",
+            "email": "me@mails.com",
+            "updatedAt": "2020-07-05T13:39:20.709Z",
+            "createdAt": "2020-07-05T13:39:20.709Z"
+          }
+        }
+      },
+      "User": {
+        "title": "User",
+        "required": [
+          "id",
+          "name",
+          "email",
+          "updatedAt",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "4db82e72-297c-413b-b324-a1e05525f336",
+          "name": "Adam Mohammed",
+          "email": "me@mails.com",
+          "updatedAt": "2020-07-05T13:39:20.709Z",
+          "createdAt": "2020-07-05T13:39:20.709Z"
+        }
+      },
+      "Login": {
+        "title": "Login",
+        "required": [
+          "status",
+          "token",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data"
+          }
+        },
+        "example": {
+          "status": "success",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1MjZhMzkwLWJjNmItNDJmNy1hNjc4LWU4OWVjNTQ3NjlkYyIsImlhdCI6MTU5Mzk2MTEyOCwiZXhwIjoxNTk0MjIwMzI4fQ.vJm0YP950AwGIF7zFhgLwRbsDRWf71YjorZybPygQDk",
+          "data": {
+            "user": {
+              "id": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+              "name": "John Cena",
+              "email": "mock@mail.com",
+              "createdAt": "2020-07-05T14:58:01Z",
+              "updatedAt": "2020-07-05T14:58:01Z"
+            }
+          }
+        }
+      },
+      "ChangePassword": {
+        "title": "ChangePassword",
+        "required": [
+          "status",
+          "token",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data"
+          }
+        },
+        "example": {
+          "status": "success",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1MjZhMzkwLWJjNmItNDJmNy1hNjc4LWU4OWVjNTQ3NjlkYyIsImlhdCI6MTU5Mzk2MTIzMywiZXhwIjoxNTk0MjIwNDMzfQ.TuMbVkAIPKSIf5yZeA9SfbVQtFheGCSOARLNDio7C2U",
+          "data": {
+            "user": {
+              "id": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+              "name": "John Cena",
+              "email": "mock@mail.com",
+              "createdAt": "2020-07-05T14:58:01Z",
+              "updatedAt": "2020-07-05T15:00:33.201Z"
+            }
+          }
+        }
+      },
+      "Transfermoney": {
+        "title": "Transfermoney",
+        "required": [
+          "status",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data3"
+          }
+        },
+        "example": {
+          "status": "success",
+          "data": {
+            "transaction": {
+              "createdAt": "2020-07-05T15:15:50.437Z",
+              "updatedAt": "2020-07-05T15:15:50.437Z",
+              "id": "e6431079-1751-461b-a3ce-fb8a6ce9629b",
+              "denomination": "NGN",
+              "source": "1593961081532",
+              "recipient": "1593962036483",
+              "amount": 200,
+              "narration": "Buy bread",
+              "walletId": "7764b954-839b-43c8-9760-0d293dd7603c",
+              "type": "debit",
+              "status": "success",
+              "walletBalance": 3800.78
+            }
+          }
+        }
+      },
+      "Data3": {
+        "title": "Data3",
+        "required": [
+          "transaction"
+        ],
+        "type": "object",
+        "properties": {
+          "transaction": {
+            "$ref": "#/components/schemas/Transaction"
+          }
+        },
+        "example": {
+          "transaction": {
+            "createdAt": "2020-07-05T15:15:50.437Z",
+            "updatedAt": "2020-07-05T15:15:50.437Z",
+            "id": "e6431079-1751-461b-a3ce-fb8a6ce9629b",
+            "denomination": "NGN",
+            "source": "1593961081532",
+            "recipient": "1593962036483",
+            "amount": 200,
+            "narration": "Buy bread",
+            "walletId": "7764b954-839b-43c8-9760-0d293dd7603c",
+            "type": "debit",
+            "status": "success",
+            "walletBalance": 3800.78
+          }
+        }
+      },
+      "Transaction": {
+        "title": "Transaction",
+        "required": [
+          "createdAt",
+          "updatedAt",
+          "id",
+          "denomination",
+          "source",
+          "recipient",
+          "amount",
+          "narration",
+          "walletId",
+          "type",
+          "status",
+          "walletBalance"
+        ],
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "denomination": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "narration": {
+            "type": "string"
+          },
+          "walletId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "walletBalance": {
+            "type": "number"
+          }
+        },
+        "example": {
+          "createdAt": "2020-07-05T15:15:50.437Z",
+          "updatedAt": "2020-07-05T15:15:50.437Z",
+          "id": "e6431079-1751-461b-a3ce-fb8a6ce9629b",
+          "denomination": "NGN",
+          "source": "1593961081532",
+          "recipient": "1593962036483",
+          "amount": 200,
+          "narration": "Buy bread",
+          "walletId": "7764b954-839b-43c8-9760-0d293dd7603c",
+          "type": "debit",
+          "status": "success",
+          "walletBalance": 3800.78
+        }
+      },
+      "TransactionHistory": {
+        "title": "TransactionHistory",
+        "required": [
+          "status",
+          "data",
+          "count",
+          "page",
+          "limit"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data4"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "status": "success",
+          "data": {
+            "transactions": [
+              {
+                "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+                "type": "credit",
+                "amount": 2000.39,
+                "source": null,
+                "recipient": "1593961081532",
+                "narration": "Fund Wallet",
+                "status": "success",
+                "walletBalance": 4000.78,
+                "denomination": "NGN",
+                "errMsg": null,
+                "txnReference": "qhrnedgawp",
+                "createdAt": "2020-07-05T15:06:56Z",
+                "updatedAt": "2020-07-05T15:08:02Z",
+                "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+              },
+              {
+                "id": "417116ff-88c3-4037-a6c7-f90bb01dd073",
+                "type": "credit",
+                "amount": 2000.39,
+                "source": null,
+                "recipient": "1593961081532",
+                "narration": "Fund Wallet",
+                "status": "pending",
+                "walletBalance": 0,
+                "denomination": "NGN",
+                "errMsg": null,
+                "txnReference": "sbqows4v45",
+                "createdAt": "2020-07-05T15:02:09Z",
+                "updatedAt": "2020-07-05T15:02:09Z",
+                "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+              }
+            ]
+          },
+          "count": 2,
+          "page": 1,
+          "limit": 10
+        }
+      },
+      "Data4": {
+        "title": "Data4",
+        "required": [
+          "transactions"
+        ],
+        "type": "object",
+        "properties": {
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transaction1"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "transactions": [
+            {
+              "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+              "type": "credit",
+              "amount": 2000.39,
+              "source": null,
+              "recipient": "1593961081532",
+              "narration": "Fund Wallet",
+              "status": "success",
+              "walletBalance": 4000.78,
+              "denomination": "NGN",
+              "errMsg": null,
+              "txnReference": "qhrnedgawp",
+              "createdAt": "2020-07-05T15:06:56Z",
+              "updatedAt": "2020-07-05T15:08:02Z",
+              "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+            },
+            {
+              "id": "417116ff-88c3-4037-a6c7-f90bb01dd073",
+              "type": "credit",
+              "amount": 2000.39,
+              "source": null,
+              "recipient": "1593961081532",
+              "narration": "Fund Wallet",
+              "status": "pending",
+              "walletBalance": 0,
+              "denomination": "NGN",
+              "errMsg": null,
+              "txnReference": "sbqows4v45",
+              "createdAt": "2020-07-05T15:02:09Z",
+              "updatedAt": "2020-07-05T15:02:09Z",
+              "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+            }
+          ]
+        }
+      },
+      "Transaction1": {
+        "title": "Transaction1",
+        "required": [
+          "id",
+          "type",
+          "amount",
+          "source",
+          "recipient",
+          "narration",
+          "status",
+          "walletBalance",
+          "denomination",
+          "errMsg",
+          "txnReference",
+          "createdAt",
+          "updatedAt",
+          "walletId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "source": {
+            "type": "string",
+            "nullable": true
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "narration": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "walletBalance": {
+            "type": "number"
+          },
+          "denomination": {
+            "type": "string"
+          },
+          "errMsg": {
+            "type": "string",
+            "nullable": true
+          },
+          "txnReference": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "walletId": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+          "type": "credit",
+          "amount": 2000.39,
+          "source": null,
+          "recipient": "1593961081532",
+          "narration": "Fund Wallet",
+          "status": "success",
+          "walletBalance": 4000.78,
+          "denomination": "NGN",
+          "errMsg": null,
+          "txnReference": "qhrnedgawp",
+          "createdAt": "2020-07-05T15:06:56Z",
+          "updatedAt": "2020-07-05T15:08:02Z",
+          "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+        }
+      },
+      "GetTransaction": {
+        "title": "GetTransaction",
+        "required": [
+          "status",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data5"
+          }
+        },
+        "example": {
+          "status": "success",
+          "data": {
+            "transaction": {
+              "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+              "type": "credit",
+              "amount": 2000.39,
+              "source": null,
+              "recipient": "1593961081532",
+              "narration": "Fund Wallet",
+              "status": "success",
+              "walletBalance": 4000.78,
+              "denomination": "NGN",
+              "errMsg": null,
+              "txnReference": "qhrnedgawp",
+              "createdAt": "2020-07-05T15:06:56Z",
+              "updatedAt": "2020-07-05T15:08:02Z",
+              "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+            }
+          }
+        }
+      },
+      "Data5": {
+        "title": "Data5",
+        "required": [
+          "transaction"
+        ],
+        "type": "object",
+        "properties": {
+          "transaction": {
+            "$ref": "#/components/schemas/Transaction1"
+          }
+        },
+        "example": {
+          "transaction": {
+            "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+            "type": "credit",
+            "amount": 2000.39,
+            "source": null,
+            "recipient": "1593961081532",
+            "narration": "Fund Wallet",
+            "status": "success",
+            "walletBalance": 4000.78,
+            "denomination": "NGN",
+            "errMsg": null,
+            "txnReference": "qhrnedgawp",
+            "createdAt": "2020-07-05T15:06:56Z",
+            "updatedAt": "2020-07-05T15:08:02Z",
+            "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+          }
+        }
+      },
+      "FundWallet": {
+        "title": "FundWallet",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Data6"
+          }
+        },
+        "example": {
+          "data": {
+            "url": "https://checkout.paystack.com/z26vmuplupa26cj",
+            "reference": "sbqows4v45"
+          }
+        }
+      },
+      "Data6": {
+        "title": "Data6",
+        "required": [
+          "url",
+          "reference"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "url": "https://checkout.paystack.com/z26vmuplupa26cj",
+          "reference": "sbqows4v45"
+        }
+      },
+      "GetWalletBalance": {
+        "title": "GetWalletBalance",
+        "required": [
+          "status",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data7"
+          }
+        },
+        "example": {
+          "status": "success",
+          "data": {
+            "wallet": {
+              "id": "7764b954-839b-43c8-9760-0d293dd7603c",
+              "walletNo": "1593961081532",
+              "denomination": "NGN",
+              "balance": 4000.78,
+              "createdAt": "2020-07-05T14:58:01Z",
+              "updatedAt": "2020-07-05T15:08:02Z",
+              "userId": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+              "User": {
+                "name": "John Cena",
+                "email": "mock@mail.com"
+              }
+            }
+          }
+        }
+      },
+      "Data7": {
+        "title": "Data7",
+        "required": [
+          "wallet"
+        ],
+        "type": "object",
+        "properties": {
+          "wallet": {
+            "$ref": "#/components/schemas/Wallet"
+          }
+        },
+        "example": {
+          "wallet": {
+            "id": "7764b954-839b-43c8-9760-0d293dd7603c",
+            "walletNo": "1593961081532",
+            "denomination": "NGN",
+            "balance": 4000.78,
+            "createdAt": "2020-07-05T14:58:01Z",
+            "updatedAt": "2020-07-05T15:08:02Z",
+            "userId": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+            "User": {
+              "name": "John Cena",
+              "email": "mock@mail.com"
+            }
+          }
+        }
+      },
+      "Wallet": {
+        "title": "Wallet",
+        "required": [
+          "id",
+          "walletNo",
+          "denomination",
+          "balance",
+          "createdAt",
+          "updatedAt",
+          "userId",
+          "User"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "walletNo": {
+            "type": "string"
+          },
+          "denomination": {
+            "type": "string"
+          },
+          "balance": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "User": {
+            "$ref": "#/components/schemas/User3"
+          }
+        },
+        "example": {
+          "id": "7764b954-839b-43c8-9760-0d293dd7603c",
+          "walletNo": "1593961081532",
+          "denomination": "NGN",
+          "balance": 4000.78,
+          "createdAt": "2020-07-05T14:58:01Z",
+          "updatedAt": "2020-07-05T15:08:02Z",
+          "userId": "e526a390-bc6b-42f7-a678-e89ec54769dc",
+          "User": {
+            "name": "John Cena",
+            "email": "mock@mail.com"
+          }
+        }
+      },
+      "User3": {
+        "title": "User3",
+        "required": [
+          "name",
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "John Cena",
+          "email": "mock@mail.com"
+        }
+      },
+      "VerifyPayment": {
+        "title": "VerifyPayment",
+        "required": [
+          "status",
+          "message",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data8"
+          }
+        },
+        "example": {
+          "status": "success",
+          "message": "payment successful",
+          "data": {
+            "transaction": {
+              "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+              "type": "credit",
+              "amount": 2000.39,
+              "source": null,
+              "recipient": "1593961081532",
+              "narration": "Fund Wallet",
+              "status": "success",
+              "walletBalance": 4000.78,
+              "denomination": "NGN",
+              "errMsg": null,
+              "txnReference": "qhrnedgawp",
+              "createdAt": "2020-07-05T15:06:56Z",
+              "updatedAt": "2020-07-05T15:08:02.013Z",
+              "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+            },
+            "result": {
+              "status": true,
+              "message": "Verification successful",
+              "data": {
+                "id": 733955308,
+                "domain": "test",
+                "status": "success",
+                "reference": "qhrnedgawp",
+                "amount": 200039,
+                "message": null,
+                "gateway_response": "Successful",
+                "paid_at": "2020-07-05T15:07:35Z",
+                "created_at": "2020-07-05T15:06:56Z",
+                "channel": "card",
+                "currency": "NGN",
+                "ip_address": "105.112.18.182",
+                "metadata": "",
+                "log": {
+                  "start_time": 1593961649,
+                  "time_spent": 7,
+                  "attempts": 1,
+                  "errors": 0,
+                  "success": true,
+                  "mobile": false,
+                  "input": [],
+                  "history": [
+                    {
+                      "type": "action",
+                      "message": "Attempted to pay with card",
+                      "time": 6
+                    },
+                    {
+                      "type": "success",
+                      "message": "Successfully paid with card",
+                      "time": 7
+                    }
+                  ]
+                },
+                "fees": 3001,
+                "fees_split": null,
+                "authorization": {
+                  "authorization_code": "AUTH_ffubwcoq6c",
+                  "bin": "408408",
+                  "last4": "4081",
+                  "exp_month": "12",
+                  "exp_year": "2020",
+                  "channel": "card",
+                  "card_type": "visa DEBIT",
+                  "bank": "Test Bank",
+                  "country_code": "NG",
+                  "brand": "visa",
+                  "reusable": true,
+                  "signature": "SIG_upPmVq9O1jemQ1mFA4ca",
+                  "account_name": null
+                },
+                "customer": {
+                  "id": 26104751,
+                  "first_name": null,
+                  "last_name": null,
+                  "email": "mock@mail.com",
+                  "customer_code": "CUS_yrg48tgxmbpexsb",
+                  "phone": null,
+                  "metadata": null,
+                  "risk_action": "default",
+                  "international_format_phone": null
+                },
+                "plan": null,
+                "split": {},
+                "order_id": null,
+                "paidAt": "2020-07-05T15:07:35Z",
+                "createdAt": "2020-07-05T15:06:56Z",
+                "requested_amount": 200039,
+                "transaction_date": "2020-07-05T15:06:56Z",
+                "plan_object": {},
+                "subaccount": {}
+              }
+            }
+          }
+        }
+      },
+      "Data8": {
+        "title": "Data8",
+        "required": [
+          "transaction",
+          "result"
+        ],
+        "type": "object",
+        "properties": {
+          "transaction": {
+            "$ref": "#/components/schemas/Transaction1"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        },
+        "example": {
+          "transaction": {
+            "id": "988cf5cc-49c1-4b26-9f8c-4f703e33b650",
+            "type": "credit",
+            "amount": 2000.39,
+            "source": null,
+            "recipient": "1593961081532",
+            "narration": "Fund Wallet",
+            "status": "success",
+            "walletBalance": 4000.78,
+            "denomination": "NGN",
+            "errMsg": null,
+            "txnReference": "qhrnedgawp",
+            "createdAt": "2020-07-05T15:06:56Z",
+            "updatedAt": "2020-07-05T15:08:02.013Z",
+            "walletId": "7764b954-839b-43c8-9760-0d293dd7603c"
+          },
+          "result": {
+            "status": true,
+            "message": "Verification successful",
+            "data": {
+              "id": 733955308,
+              "domain": "test",
+              "status": "success",
+              "reference": "qhrnedgawp",
+              "amount": 200039,
+              "message": null,
+              "gateway_response": "Successful",
+              "paid_at": "2020-07-05T15:07:35Z",
+              "created_at": "2020-07-05T15:06:56Z",
+              "channel": "card",
+              "currency": "NGN",
+              "ip_address": "105.112.18.182",
+              "metadata": "",
+              "log": {
+                "start_time": 1593961649,
+                "time_spent": 7,
+                "attempts": 1,
+                "errors": 0,
+                "success": true,
+                "mobile": false,
+                "input": [],
+                "history": [
+                  {
+                    "type": "action",
+                    "message": "Attempted to pay with card",
+                    "time": 6
+                  },
+                  {
+                    "type": "success",
+                    "message": "Successfully paid with card",
+                    "time": 7
+                  }
+                ]
+              },
+              "fees": 3001,
+              "fees_split": null,
+              "authorization": {
+                "authorization_code": "AUTH_ffubwcoq6c",
+                "bin": "408408",
+                "last4": "4081",
+                "exp_month": "12",
+                "exp_year": "2020",
+                "channel": "card",
+                "card_type": "visa DEBIT",
+                "bank": "Test Bank",
+                "country_code": "NG",
+                "brand": "visa",
+                "reusable": true,
+                "signature": "SIG_upPmVq9O1jemQ1mFA4ca",
+                "account_name": null
+              },
+              "customer": {
+                "id": 26104751,
+                "first_name": null,
+                "last_name": null,
+                "email": "mock@mail.com",
+                "customer_code": "CUS_yrg48tgxmbpexsb",
+                "phone": null,
+                "metadata": null,
+                "risk_action": "default",
+                "international_format_phone": null
+              },
+              "plan": null,
+              "split": {},
+              "order_id": null,
+              "paidAt": "2020-07-05T15:07:35Z",
+              "createdAt": "2020-07-05T15:06:56Z",
+              "requested_amount": 200039,
+              "transaction_date": "2020-07-05T15:06:56Z",
+              "plan_object": {},
+              "subaccount": {}
+            }
+          }
+        }
+      },
+      "Result": {
+        "title": "Result",
+        "required": [
+          "status",
+          "message",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data9"
+          }
+        },
+        "example": {
+          "status": true,
+          "message": "Verification successful",
+          "data": {
+            "id": 733955308,
+            "domain": "test",
+            "status": "success",
+            "reference": "qhrnedgawp",
+            "amount": 200039,
+            "message": null,
+            "gateway_response": "Successful",
+            "paid_at": "2020-07-05T15:07:35Z",
+            "created_at": "2020-07-05T15:06:56Z",
+            "channel": "card",
+            "currency": "NGN",
+            "ip_address": "105.112.18.182",
+            "metadata": "",
+            "log": {
+              "start_time": 1593961649,
+              "time_spent": 7,
+              "attempts": 1,
+              "errors": 0,
+              "success": true,
+              "mobile": false,
+              "input": [],
+              "history": [
+                {
+                  "type": "action",
+                  "message": "Attempted to pay with card",
+                  "time": 6
+                },
+                {
+                  "type": "success",
+                  "message": "Successfully paid with card",
+                  "time": 7
+                }
+              ]
+            },
+            "fees": 3001,
+            "fees_split": null,
+            "authorization": {
+              "authorization_code": "AUTH_ffubwcoq6c",
+              "bin": "408408",
+              "last4": "4081",
+              "exp_month": "12",
+              "exp_year": "2020",
+              "channel": "card",
+              "card_type": "visa DEBIT",
+              "bank": "Test Bank",
+              "country_code": "NG",
+              "brand": "visa",
+              "reusable": true,
+              "signature": "SIG_upPmVq9O1jemQ1mFA4ca",
+              "account_name": null
+            },
+            "customer": {
+              "id": 26104751,
+              "first_name": null,
+              "last_name": null,
+              "email": "mock@mail.com",
+              "customer_code": "CUS_yrg48tgxmbpexsb",
+              "phone": null,
+              "metadata": null,
+              "risk_action": "default",
+              "international_format_phone": null
+            },
+            "plan": null,
+            "split": {},
+            "order_id": null,
+            "paidAt": "2020-07-05T15:07:35Z",
+            "createdAt": "2020-07-05T15:06:56Z",
+            "requested_amount": 200039,
+            "transaction_date": "2020-07-05T15:06:56Z",
+            "plan_object": {},
+            "subaccount": {}
+          }
+        }
+      },
+      "Data9": {
+        "title": "Data9",
+        "required": [
+          "id",
+          "domain",
+          "status",
+          "reference",
+          "amount",
+          "message",
+          "gateway_response",
+          "paid_at",
+          "created_at",
+          "channel",
+          "currency",
+          "ip_address",
+          "metadata",
+          "log",
+          "fees",
+          "fees_split",
+          "authorization",
+          "customer",
+          "plan",
+          "split",
+          "order_id",
+          "paidAt",
+          "createdAt",
+          "requested_amount",
+          "transaction_date",
+          "plan_object",
+          "subaccount"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "gateway_response": {
+            "type": "string"
+          },
+          "paid_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "ip_address": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "string"
+          },
+          "log": {
+            "$ref": "#/components/schemas/Log"
+          },
+          "fees": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fees_split": {
+            "type": "string",
+            "nullable": true
+          },
+          "authorization": {
+            "$ref": "#/components/schemas/Authorization"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "plan": {
+            "type": "string",
+            "nullable": true
+          },
+          "split": {
+            "type": "object"
+          },
+          "order_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "paidAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "requested_amount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "transaction_date": {
+            "type": "string"
+          },
+          "plan_object": {
+            "type": "object"
+          },
+          "subaccount": {
+            "type": "object"
+          }
+        },
+        "example": {
+          "id": 733955308,
+          "domain": "test",
+          "status": "success",
+          "reference": "qhrnedgawp",
+          "amount": 200039,
+          "message": null,
+          "gateway_response": "Successful",
+          "paid_at": "2020-07-05T15:07:35Z",
+          "created_at": "2020-07-05T15:06:56Z",
+          "channel": "card",
+          "currency": "NGN",
+          "ip_address": "105.112.18.182",
+          "metadata": "",
+          "log": {
+            "start_time": 1593961649,
+            "time_spent": 7,
+            "attempts": 1,
+            "errors": 0,
+            "success": true,
+            "mobile": false,
+            "input": [],
+            "history": [
+              {
+                "type": "action",
+                "message": "Attempted to pay with card",
+                "time": 6
+              },
+              {
+                "type": "success",
+                "message": "Successfully paid with card",
+                "time": 7
+              }
+            ]
+          },
+          "fees": 3001,
+          "fees_split": null,
+          "authorization": {
+            "authorization_code": "AUTH_ffubwcoq6c",
+            "bin": "408408",
+            "last4": "4081",
+            "exp_month": "12",
+            "exp_year": "2020",
+            "channel": "card",
+            "card_type": "visa DEBIT",
+            "bank": "Test Bank",
+            "country_code": "NG",
+            "brand": "visa",
+            "reusable": true,
+            "signature": "SIG_upPmVq9O1jemQ1mFA4ca",
+            "account_name": null
+          },
+          "customer": {
+            "id": 26104751,
+            "first_name": null,
+            "last_name": null,
+            "email": "mock@mail.com",
+            "customer_code": "CUS_yrg48tgxmbpexsb",
+            "phone": null,
+            "metadata": null,
+            "risk_action": "default",
+            "international_format_phone": null
+          },
+          "plan": null,
+          "split": {},
+          "order_id": null,
+          "paidAt": "2020-07-05T15:07:35Z",
+          "createdAt": "2020-07-05T15:06:56Z",
+          "requested_amount": 200039,
+          "transaction_date": "2020-07-05T15:06:56Z",
+          "plan_object": {},
+          "subaccount": {}
+        }
+      },
+      "Log": {
+        "title": "Log",
+        "required": [
+          "start_time",
+          "time_spent",
+          "attempts",
+          "errors",
+          "success",
+          "mobile",
+          "input",
+          "history"
+        ],
+        "type": "object",
+        "properties": {
+          "start_time": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "time_spent": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attempts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "errors": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "mobile": {
+            "type": "boolean"
+          },
+          "input": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/History"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "start_time": 1593961649,
+          "time_spent": 7,
+          "attempts": 1,
+          "errors": 0,
+          "success": true,
+          "mobile": false,
+          "input": [],
+          "history": [
+            {
+              "type": "action",
+              "message": "Attempted to pay with card",
+              "time": 6
+            },
+            {
+              "type": "success",
+              "message": "Successfully paid with card",
+              "time": 7
+            }
+          ]
+        }
+      },
+      "History": {
+        "title": "History",
+        "required": [
+          "type",
+          "message",
+          "time"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "time": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "type": "action",
+          "message": "Attempted to pay with card",
+          "time": 6
+        }
+      },
+      "Authorization": {
+        "title": "Authorization",
+        "required": [
+          "authorization_code",
+          "bin",
+          "last4",
+          "exp_month",
+          "exp_year",
+          "channel",
+          "card_type",
+          "bank",
+          "country_code",
+          "brand",
+          "reusable",
+          "signature",
+          "account_name"
+        ],
+        "type": "object",
+        "properties": {
+          "authorization_code": {
+            "type": "string"
+          },
+          "bin": {
+            "type": "string"
+          },
+          "last4": {
+            "type": "string"
+          },
+          "exp_month": {
+            "type": "string"
+          },
+          "exp_year": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "card_type": {
+            "type": "string"
+          },
+          "bank": {
+            "type": "string"
+          },
+          "country_code": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "reusable": {
+            "type": "boolean"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "account_name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "example": {
+          "authorization_code": "AUTH_ffubwcoq6c",
+          "bin": "408408",
+          "last4": "4081",
+          "exp_month": "12",
+          "exp_year": "2020",
+          "channel": "card",
+          "card_type": "visa DEBIT",
+          "bank": "Test Bank",
+          "country_code": "NG",
+          "brand": "visa",
+          "reusable": true,
+          "signature": "SIG_upPmVq9O1jemQ1mFA4ca",
+          "account_name": null
+        }
+      },
+      "Customer": {
+        "title": "Customer",
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "email",
+          "customer_code",
+          "phone",
+          "metadata",
+          "risk_action",
+          "international_format_phone"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string"
+          },
+          "customer_code": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "string",
+            "nullable": true
+          },
+          "risk_action": {
+            "type": "string"
+          },
+          "international_format_phone": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "example": {
+          "id": 26104751,
+          "first_name": null,
+          "last_name": null,
+          "email": "mock@mail.com",
+          "customer_code": "CUS_yrg48tgxmbpexsb",
+          "phone": null,
+          "metadata": null,
+          "risk_action": "default",
+          "international_format_phone": null
+        }
+      }
+    },
+    "securitySchemes": {
+      "httpBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "httpBearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "The authentication route, It includes routes to signup, login and change pasword routes"
+    },
+    {
+      "name": "Transactions",
+      "description": "Route for transactions between users. Users can transfer and get their transactions history."
+    },
+    {
+      "name": "Wallet",
+      "description": "Route for Wallet operations including funding and getting wallet balance"
+    }
+  ]
+}

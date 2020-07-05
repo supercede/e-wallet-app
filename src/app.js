@@ -4,7 +4,9 @@ import logger from 'morgan';
 import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import swaggerUI from 'swagger-ui-express';
 import errorHandler from './middleware/errorHandler';
+import walletDocs from '../docs/wallet-doc.json';
 import routes from './routes/index.route';
 
 config();
@@ -34,6 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api/v1', routes);
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(walletDocs));
 
 app.get('/', (_, res) => {
   res.render('index');
