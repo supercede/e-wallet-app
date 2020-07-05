@@ -36,10 +36,7 @@ app.use(cookieParser());
 app.use('/api/v1', routes);
 
 app.get('/', (_, res) => {
-  res.status(200).json({
-    status: 200,
-    message: 'Welcome to E-Wallet',
-  });
+  res.render('index');
 });
 
 app.use(errorHandler);

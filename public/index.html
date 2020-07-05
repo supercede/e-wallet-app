@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>E-Wallet Application</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0 2vw;
+        }
+
+        code {
+            /* background-color: #f6f8fa; */
+            background-color: #555;
+            color: #fff;
+            display: inline-block;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>e-Wallet</h1>
+
+    <p><a href="https://travis-ci.com/github/supercede/e-wallet-app"><img src="https://travis-ci.com/supercede/e-wallet-app.svg?branch=develop" alt="Travis build"></a></p>
+
+    <p><a href="https://codeclimate.com/github/supercede/e-wallet-app/maintainability"><img src="https://api.codeclimate.com/v1/badges/7bae05e0e0b1d869b619/maintainability" /></a></p>
+
+    <p><a href="https://codeclimate.com/github/supercede/e-wallet-app/test_coverage"><img src="https://api.codeclimate.com/v1/badges/7bae05e0e0b1d869b619/test_coverage" /></a></p>
+
+    <h4>A digital wallet app</h4>
+    <h3>Prerequisites</h3>
+    <p>Ensure you have the following installed on your local machine:</p>
+    <ul>
+        <li><a href="https://nodejs.org/en/download/">NodeJS</a></li>
+        <li><a href="https://www.mysql.com/downloads/">MySQL</a></li>
+    </ul>
+    <h2>Technologies Used</h2>
+    <ul>
+        <li><a href="https://nodejs.org/en/download/">NodeJS</a> - A cross-platform JavaScript runtime</li>
+        <li><a href="https://expressjs.com/">ExpressJS</a>  - NodeJS application framework</li>
+        <li><a href="https://www.mysql.com/downloads/">MySQL</a>  - A relational database management system</li>
+        <li><a href="https://sequelize.org/">Sequelize ORM</a>  - A promise-based Node.js ORM for relational databases</li>
+        <li><a href="https://www.heroku.com/nodejs/">Heroku</a>  - A container-based cloud platform as a service for deploying applications</li>
+        <li><a href="https://www.cleardb.com/developers/connect/paas/heroku/nodejs">ClearDB</a>  - A cloud database as a service for MySQL applications</li>
+    </ul>
+    <h2>Project Pipeline</h2>
+    <ul>
+        <li><a href="https://e-wallet-app.herokuapp.com/">Hosted API</a></li>
+        <li><a href="">API Docs</a></li>
+    </ul>
+    <h2>Installing/Running locally</h2>
+    <ul>
+        <li>
+            <p>Clone or fork repo</p>
+            <pre>
+                <code> -<span> git clone https://github.com/supercede/e-wallet-app.git</span>  
+ -<span> cd e-wallet</span> </code>
+            </pre>
+        </li>
+        <li>
+            <p>
+            Create/configure <code>.env</code> environment with your credentials. A sample <code>.env.example</code> file has been provided. Make a duplicate of <code>.env.example</code> and rename to <code>.env</code>, then configure your credentials (ensure to provide the correct details). After configuring your database in accordance with the Sequelize config file (<code>src/config/config.js</code>):</p>
+
+            <pre>
+                <code> -<span> npm install</span>  
+ -<span> npm run db:seed</span> </code>
+            </pre>
+        </li>
+        <li>
+            <p>Run <code>npm run dev</code> to start the server and watch for changes </p>
+        </li>
+    </ul>
+    <h2>Documentation</h2>
+    <p>Check documentation <a href="">here</a></p>
+</body>
+</html>

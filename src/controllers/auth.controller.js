@@ -79,11 +79,6 @@ export default {
   login: async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({
-      include: [
-        {
-          model: Wallet,
-        },
-      ],
       where: { email },
     });
 
