@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { config } from 'dotenv';
 import logger from 'morgan';
 import rateLimit from 'express-rate-limit';
@@ -30,6 +31,7 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
+app.use(cors('*'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

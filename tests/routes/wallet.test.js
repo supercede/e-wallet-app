@@ -42,9 +42,7 @@ describe('wallet routes', () => {
         `/api/v1/wallet/paystack/redirect?reference=${reference}`,
       );
 
-      expect(response.status).toBe(200);
-      expect(response.body.message).toBe('payment successful');
-      expect(response.body.data).toHaveProperty('transaction');
+      expect(response.status).toBe(302);
     });
   });
 

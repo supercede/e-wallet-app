@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
-
+import { config } from 'dotenv';
 import paystackService from '../services/paystackService';
 import { ApplicationError } from '../helpers/errors';
 import models from '../models';
 import utils from '../helpers/utils';
+
+config();
 
 const { normalizeAmount } = utils;
 
@@ -99,14 +101,15 @@ export default {
     await transaction.save();
     await wallet.save();
 
-    return res.status(200).json({
-      status: 'success',
-      message: 'payment successful',
-      data: {
-        transaction,
-        result,
-      },
-    });
+    // return res.status(200).json({
+    //   status: 'success',
+    //   message: 'payment successful',
+    //   data: {
+    //     transaction,
+    //     result,
+    //   },
+    // });
+    res.redirect(`${process.env.FRONT_END_URL}/dashboard`);
   },
 
   getWallet: async (req, res) => {
